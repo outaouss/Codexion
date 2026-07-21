@@ -6,7 +6,7 @@
 /*   By: outaouss <outaouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 01:53:04 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/20 01:59:35 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/07/21 22:36:50 by outaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,58 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef struct s_sim t_sim;
+
+typedef struct s_heap {
+    int *array;
+    int count;
+    int capacity;
+} t_heap;
+
+typedef struct s_dongle
+{
+    long            available_at;
+    int             in_process;
+    pthread_mutex_t d_mutex;
+    t_heap          heap;
+}   t_dongle;
+
+typedef struct s_coder
+{
+    int             id;
+    long            last_compile_start;
+    int             compile_count;
+    pthread_t       thread;
+    t_dongle        *left;
+    t_dongle        *right;
+    t_sim          *data;
+    pthread_mutex_t c_mutex;
+}   t_coder;
+
+typedef struct s_sim
+{
+    long start_time;
+
+    int number_of_coders;
+    int time_to_burnout;
+    int time_to_compile;
+    int time_to_debug;
+    int time_to_refactor;
+    int number_of_compiles_required;
+    int dongle_cooldown;
+
+    int scheduler_mode;
+
+    pthread_mutex_t print_mutex;
+    t_dongle *dongles;
+    t_coder         *coders;
+
+}   t_sim;
+
+
 int check_number(char *str);
+int parsing(char **av, t_sim *sim);
+long	ft_atoi(char *str);
+int init_heaps(t_sim *sim);
 
 #endif
