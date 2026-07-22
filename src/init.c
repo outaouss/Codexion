@@ -22,7 +22,7 @@ int init_heaps(t_sim *sim)
         if (!sim->dongles[i].heap.array)
         {
             fprintf(stderr, "Error While Allocating !!!");
-            // ba9i anrj3 hna bach nfreei l heap kameel !!!
+            free_heaps_so_far(sim, i);
             return (0);
         }
         sim->dongles[i].heap.capacity = 2;

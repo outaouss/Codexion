@@ -73,5 +73,9 @@ int check_number(char *str);
 int parsing(char **av, t_sim *sim);
 long	ft_atoi(char *str);
 int init_heaps(t_sim *sim);
+void free_heaps_so_far(t_sim *sim, int failed_index);
+void swap_nodes(int *a, int *b);
+void push(t_heap **heap, int coder_id);
+int pop(t_heap *heap);
 
 #endif

@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <outaouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/20 01:52:44 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/21 20:10:47 by outaouss         ###   ########.fr       */
+/*   Created: 2026/07/22 00:20:32 by outaouss          #+#    #+#             */
+/*   Updated: 2026/07/22 00:20:33 by outaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int main(int argc, char **argv)
+void free_heaps_so_far(t_sim *sim, int failed_index)
 {
-    t_sim sim;
+    int j = failed_index - 1; 
 
-    if (argc == 9)
+    while (j >= 0)
     {
-        if (parsing(argv, &sim) == 0)
-            return (0);
-    }
-    else
-    {
-        fprintf(stderr, "Error: Inputs Must Be 8\nGot: [ %d ]\n", argc - 1);
-        return (0);
+        free(sim->dongles[j].heap.array);
+        j--;
     }
 }
