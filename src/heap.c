@@ -66,8 +66,24 @@ void bubble_down(t_heap *heap, int index)
 
 void push(t_heap *heap, int coder_id)
 {
+    if (heap->count == heap->capacity)
+        return ;
+    heap->array[heap->count] = coder_id;
+    heap->count++;
+    bubble_up(heap, heap->count - 1);
 }
 
 int pop(t_heap *heap)
 {
+    int top_coder;
+    
+    if (heap->count == 0)
+    return (-1);
+
+    top_coder = heap->array[0];
+    
+    heap->count--;
+    heap->array[0] = heap->array[heap->count];
+    bubble_down(heap, 0);   
+    return (top_coder); 
 }
