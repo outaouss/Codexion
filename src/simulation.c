@@ -6,7 +6,7 @@
 /*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:24 by splinta           #+#    #+#             */
-/*   Updated: 2026/07/24 03:39:00 by splinta          ###   ########.fr       */
+/*   Updated: 2026/07/24 03:54:58 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void *coder_routine(void *arg)
         // print is compiling
         coder->compile_count++; 
         c_sleep(coder->data->time_to_compile);
-        // We will need to add the dongle_cooldown logic here soon!
+        // hna ghan7et cooldown
         pthread_mutex_unlock(&coder->left->d_mutex);
         pthread_mutex_unlock(&coder->right->d_mutex);
         // print is debuging

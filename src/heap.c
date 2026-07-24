@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 00:20:23 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/22 00:20:25 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/07/24 04:00:46 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void push(t_heap *heap, int coder_id)
 int pop(t_heap *heap)
 {
     int top_coder;
-    
+
     if (heap->count == 0)
-    return (-1);
+        return (-1);
 
     top_coder = heap->array[0];
     
