@@ -18,13 +18,13 @@ int init_heaps(t_sim *sim)
     
     while (i < sim->number_of_coders)
     {
-        sim->dongles[i].heap.array = malloc(sizeof(int) * 2);
-        if (!sim->dongles[i].heap.array)
-        {
-            fprintf(stderr, "Error While Allocating !!!");
-            free_heaps_so_far(sim, i);
-            return (0);
-        }
+        // sim->dongles[i].heap.array = malloc(sizeof(int) * 2);
+        // if (!sim->dongles[i].heap.array)
+        // {
+        //     fprintf(stderr, "Error While Allocating !!!");
+        //     free_heaps_so_far(sim, i);
+        //     return (0);
+        // }
         sim->dongles[i].heap.capacity = 2;
         sim->dongles[i].heap.count = 0;
         i++;
@@ -51,7 +51,16 @@ int init_simulation(t_sim *sim)
     }
     while(i < sim->number_of_coders)
     {
-        pthread_mutex_init(&sim->dongles[i].d_mutex, NULL);
+        if(pthread_mutex_init(&sim->dongles[i].d_mutex, NULL))
+        {
+            while(i--)
+            {
+                pthread_mutex_destroy(&sim->dongles[i].d_mutex);
+            }
+            free(sim->coders);
+            free(sim->dongles);
+            return (0);
+        }
         sim->dongles[i].available_at = 0;
         sim->dongles[i].in_process = 0;
         i++;
@@ -64,13 +73,22 @@ int init_simulation(t_sim *sim)
         sim->coders[i].data = sim;
         sim->coders[i].last_compile_start = 0;
         pthread_mutex_init(&sim->coders[i].c_mutex, NULL);
+
         sim->coders[i].left = &sim->dongles[i];
         sim->coders[i].right = &sim->dongles[(i + 1) % sim->number_of_coders];
         i++;
     }
     pthread_mutex_init(&sim->print_mutex, NULL);
+    sim->stop_flag = 0;
     if (init_heaps(sim) == 0)
     {
+        i = 0;
+        while(i < sim->number_of_coders)
+        {
+            pthread_mutex_destroy(&sim->dongles[i].d_mutex);
+            pthread_mutex_destroy(&sim->coders[i].c_mutex);
+            i++;
+        }
         free(sim->coders);
         free(sim->dongles);
         return (0);

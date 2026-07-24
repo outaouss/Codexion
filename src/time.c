@@ -26,7 +26,6 @@ void c_sleep(size_t duration)
     size_t start_time;
 
     start_time = get_time();
-
     while ((get_time() - start_time) < duration)
         usleep(500);
 }

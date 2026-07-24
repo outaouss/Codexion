@@ -23,7 +23,7 @@
 typedef struct s_sim t_sim;
 
 typedef struct s_heap {
-    int *array;
+    int array[2];
     int count;
     int capacity;
 } t_heap;
@@ -66,6 +66,7 @@ typedef struct s_sim
     pthread_mutex_t print_mutex;
     t_dongle *dongles;
     t_coder         *coders;
+    pthread_mutex_t stop_mutex;
 
 }   t_sim;
 
@@ -88,5 +89,9 @@ void do_compile(t_coder *coder);
 void release_dongles(t_coder *coder);
 void do_rest_and_refactor(t_coder *coder);
 void print_action(t_coder *coder, char *status);
+int check_stop_flag(t_sim *sim);
+int check_burnout(t_sim *sim);
+int check_all_compiled(t_sim *sim);
+void *monitor_thread(void *arg);
 
 #endif

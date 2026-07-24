@@ -21,8 +21,8 @@ int main(int argc, char **argv)
         if (parsing(argv, &sim) == 0)
             return (0);
         
-            if (init_simulation(&sim) == 0)
-                return (0);
+        if (init_simulation(&sim) == 0)
+            return (0);
         start_simulation(&sim);
     }
     else
