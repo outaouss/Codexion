@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <outaouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 01:53:04 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/21 22:36:50 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/07/24 03:19:28 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,9 @@ void free_heaps_so_far(t_sim *sim, int failed_index);
 void swap_nodes(int *a, int *b);
 void push(t_heap **heap, int coder_id);
 int pop(t_heap *heap);
+void c_sleep(size_t duration);
+size_t  get_time(void);
+int start_simulation(t_sim *sim);
+void *coder_routine(void *arg);
 
 #endif
