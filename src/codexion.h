@@ -59,6 +59,7 @@ typedef struct s_sim
     int time_to_refactor;
     int number_of_compiles_required;
     int dongle_cooldown;
+    int stop_flag;
 
     int scheduler_mode;
 
@@ -73,13 +74,19 @@ int check_number(char *str);
 int parsing(char **av, t_sim *sim);
 long	ft_atoi(char *str);
 int init_heaps(t_sim *sim);
+int init_simulation(t_sim *sim);
 void free_heaps_so_far(t_sim *sim, int failed_index);
 void swap_nodes(int *a, int *b);
-void push(t_heap **heap, int coder_id);
+void push(t_heap *heap, int coder_id);
 int pop(t_heap *heap);
 void c_sleep(size_t duration);
 size_t  get_time(void);
 int start_simulation(t_sim *sim);
 void *coder_routine(void *arg);
+void take_dongles(t_coder *coder);
+void do_compile(t_coder *coder);
+void release_dongles(t_coder *coder);
+void do_rest_and_refactor(t_coder *coder);
+void print_action(t_coder *coder, char *status);
 
 #endif

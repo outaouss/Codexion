@@ -41,14 +41,15 @@ int parsing(char **av, t_sim *sim)
             }
         }
         i++;
-        sim->number_of_coders = ft_atoi(av[1]);
-        sim->time_to_burnout = ft_atoi(av[2]);
-        sim->time_to_compile = ft_atoi(av[3]);
-        sim->time_to_debug = ft_atoi(av[4]);
-        sim->time_to_refactor = ft_atoi(av[5]);
-        sim->number_of_compiles_required = ft_atoi(av[6]);
-        sim->dongle_cooldown = ft_atoi(av[7]);
     }
+    sim->number_of_coders = ft_atoi(av[1]);
+    sim->time_to_burnout = ft_atoi(av[2]);
+    sim->time_to_compile = ft_atoi(av[3]);
+    sim->time_to_debug = ft_atoi(av[4]);
+    sim->time_to_refactor = ft_atoi(av[5]);
+    sim->number_of_compiles_required = ft_atoi(av[6]);
+    sim->dongle_cooldown = ft_atoi(av[7]);
+
     if (strcmp(av[i], "fifo") == 0)
         sim->scheduler_mode = 0;
     else if (strcmp(av[i], "edf") == 0)

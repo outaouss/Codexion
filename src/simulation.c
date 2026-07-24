@@ -23,22 +23,10 @@ void *coder_routine(void *arg)
     
     while(1)
     {
-        pthread_mutex_lock(&coder->left->d_mutex);
-        pthread_mutex_lock(&coder->right->d_mutex);
-        // print taking dongle here
-        pthread_mutex_lock(&coder->c_mutex);
-        coder->last_compile_start = get_time();
-        pthread_mutex_unlock(&coder->c_mutex);
-        // print is compiling
-        coder->compile_count++; 
-        c_sleep(coder->data->time_to_compile);
-        // hna ghan7et cooldown
-        pthread_mutex_unlock(&coder->left->d_mutex);
-        pthread_mutex_unlock(&coder->right->d_mutex);
-        // print is debuging
-        c_sleep(coder->data->time_to_debug);
-        // print is refactoring
-        c_sleep(coder->data->time_to_refactor);
+        take_dongles(coder);
+        do_compile(coder);
+        release_dongles(coder);
+        do_rest_and_refactor(coder);
     }
     return (NULL);
 }
