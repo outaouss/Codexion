@@ -6,7 +6,7 @@
 /*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 01:53:04 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/24 03:19:28 by splinta          ###   ########.fr       */
+/*   Updated: 2026/07/26 02:57:44 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct s_sim t_sim;
 
 typedef struct s_heap {
-    int array[2];
+    int *array[2];
     int count;
     int capacity;
 } t_heap;
@@ -46,6 +46,8 @@ typedef struct s_coder
     t_dongle        *right;
     t_sim          *data;
     pthread_mutex_t c_mutex;
+    size_t request_time;
+    size_t deadline;
 }   t_coder;
 
 typedef struct s_sim
@@ -77,9 +79,11 @@ long	ft_atoi(char *str);
 int init_heaps(t_sim *sim);
 int init_simulation(t_sim *sim);
 void free_heaps_so_far(t_sim *sim, int failed_index);
-void swap_nodes(int *a, int *b);
-void push(t_heap *heap, int coder_id);
+void swap_nodes(t_coder **a, t_coder **b);
+void push(t_heap *heap, t_coder *coder);
 int pop(t_heap *heap);
+void bubble_up(t_heap *heap, int index);
+void bubble_down(t_heap *heap, int index);
 void c_sleep(size_t duration);
 size_t  get_time(void);
 int start_simulation(t_sim *sim);
@@ -93,5 +97,8 @@ int check_stop_flag(t_sim *sim);
 int check_burnout(t_sim *sim);
 int check_all_compiled(t_sim *sim);
 void *monitor_thread(void *arg);
+int is_higher_priority(t_coder *a, t_coder *b);
+int	request_dongles(t_coder *coder);
+int	is_dongle_ready(t_dongle *dongle, t_coder *coder);
 
 #endif

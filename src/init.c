@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <outaouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 20:24:30 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/21 22:43:54 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/07/26 02:04:26 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ int init_heaps(t_sim *sim)
     
     while (i < sim->number_of_coders)
     {
-        // sim->dongles[i].heap.array = malloc(sizeof(int) * 2);
-        // if (!sim->dongles[i].heap.array)
-        // {
-        //     fprintf(stderr, "Error While Allocating !!!");
-        //     free_heaps_so_far(sim, i);
-        //     return (0);
-        // }
         sim->dongles[i].heap.capacity = 2;
         sim->dongles[i].heap.count = 0;
         i++;

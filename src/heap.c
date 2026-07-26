@@ -6,15 +6,28 @@
 /*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 00:20:23 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/24 04:00:46 by splinta          ###   ########.fr       */
+/*   Updated: 2026/07/26 02:28:03 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void swap_nodes(int *a, int *b)
+int	is_higher_priority(t_coder *a, t_coder *b)
 {
-    int temp;
+	if (a->data->scheduler_mode == 0)
+	{
+		if (a->request_time < b->request_time)
+			return (1);
+		return (0);
+	}
+	if (a->deadline < b->deadline)
+		return (1);
+	return (0);
+}
+
+void swap_nodes(t_coder **a, t_coder **b)
+{
+    t_coder *temp;
 
     temp = *a;
     *a = *b;
@@ -30,7 +43,7 @@ void bubble_up(t_heap *heap, int index)
     while (i > 0)
     {
         parent = (i - 1) / 2;
-        if (heap->array[parent] > heap->array[i])
+        if (is_higher_priority(heap->array[i], heap->array[parent]))
             swap_nodes(heap->array + parent, heap->array + i);
         else
             break;
@@ -52,9 +65,9 @@ void bubble_down(t_heap *heap, int index)
         r_child = i * 2 + 2;
 
         best_child = l_child;
-        if (r_child < heap->count && heap->array[l_child] > heap->array[r_child])
+        if (r_child < heap->count && is_higher_priority(heap->array[r_child], heap->array[l_child]))
             best_child = r_child;
-        if (heap->array[best_child] < heap->array[i])
+        if (is_higher_priority(heap->array[best_child], heap->array[i]))
         {
             swap_nodes(heap->array + best_child, heap->array + i);
             i = best_child;
@@ -64,21 +77,21 @@ void bubble_down(t_heap *heap, int index)
     }
 }
 
-void push(t_heap *heap, int coder_id)
+void push(t_heap *heap, t_coder *coder)
 {
     if (heap->count == heap->capacity)
         return ;
-    heap->array[heap->count] = coder_id;
+    heap->array[heap->count] = coder;
     heap->count++;
     bubble_up(heap, heap->count - 1);
 }
 
-int pop(t_heap *heap)
+t_coder *pop(t_heap *heap)
 {
-    int top_coder;
+    t_coder *top_coder;
 
     if (heap->count == 0)
-        return (-1);
+        return (NULL);
 
     top_coder = heap->array[0];
     
