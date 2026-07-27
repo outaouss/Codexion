@@ -6,7 +6,7 @@
 /*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:24 by splinta           #+#    #+#             */
-/*   Updated: 2026/07/24 03:54:58 by splinta          ###   ########.fr       */
+/*   Updated: 2026/07/27 01:55:50 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void *coder_routine(void *arg)
         take_dongles(coder);
         do_compile(coder);
         release_dongles(coder);
+        pthread_mutex_lock(&coder->c_mutex);
+        coder->compile_count++;
+        pthread_mutex_unlock(&coder->c_mutex);
         do_rest_and_refactor(coder);
     }
     return (NULL);

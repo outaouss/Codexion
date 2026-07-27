@@ -6,23 +6,42 @@
 /*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 00:20:23 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/26 02:28:03 by splinta          ###   ########.fr       */
+/*   Updated: 2026/07/27 01:19:02 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	is_higher_priority(t_coder *a, t_coder *b)
+// int	is_higher_priority(t_coder *a, t_coder *b)
+// {
+// 	if (a->data->scheduler_mode == 0)
+// 	{
+// 		if (a->request_time < b->request_time)
+// 			return (1);
+// 		return (0);
+// 	}
+// 	if (a->deadline < b->deadline)
+// 		return (1);
+// 	return (0);
+// }
+
+int is_higher_priority(t_coder *a, t_coder *b)
 {
-	if (a->data->scheduler_mode == 0)
-	{
-		if (a->request_time < b->request_time)
-			return (1);
-		return (0);
-	}
-	if (a->deadline < b->deadline)
-		return (1);
-	return (0);
+    if (a->data->scheduler_mode == 0)
+    {
+        if (a->request_time != b->request_time)
+            return (a->request_time < b->request_time);
+    }
+    else
+    {
+        if (a->deadline != b->deadline)
+            return (a->deadline < b->deadline);
+    }
+
+    if (a->last_compile_start != b->last_compile_start)
+        return (a->last_compile_start < b->last_compile_start);
+
+    return (a->id < b->id);
 }
 
 void swap_nodes(t_coder **a, t_coder **b)
@@ -44,7 +63,8 @@ void bubble_up(t_heap *heap, int index)
     {
         parent = (i - 1) / 2;
         if (is_higher_priority(heap->array[i], heap->array[parent]))
-            swap_nodes(heap->array + parent, heap->array + i);
+            // swap_nodes(heap->array + parent, heap->array + i);
+            swap_nodes((t_coder **)&heap->array[parent], (t_coder **)&heap->array[i]);
         else
             break;
         i = parent;
@@ -69,7 +89,8 @@ void bubble_down(t_heap *heap, int index)
             best_child = r_child;
         if (is_higher_priority(heap->array[best_child], heap->array[i]))
         {
-            swap_nodes(heap->array + best_child, heap->array + i);
+            // swap_nodes(heap->array + best_child, heap->array + i);
+            swap_nodes((t_coder **)&heap->array[best_child], (t_coder **)&heap->array[i]);
             i = best_child;
         }
         else

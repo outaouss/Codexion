@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <outaouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 01:52:47 by outaouss          #+#    #+#             */
-/*   Updated: 2026/07/21 20:09:47 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/07/27 01:31:40 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,23 @@ int parsing(char **av, t_sim *sim)
             fprintf(stderr, "Error: Value Overflowed.\n");
             return (0);
         }
-        if (i == 1)
+        if (i == 1 || i == 6)
         {
-            if (value == 0)
+            if (i == 1)
             {
-                fprintf(stderr, "Error: Coders Must Be More Than 0.\n");
-                return (0);
+                if (value == 0)
+                {
+                    fprintf(stderr, "Error: Coders Must Be More Than 0.\n");
+                    return (0);
+                }
+            }
+            if (i == 6)
+            {
+                if (value == 0)
+                {
+                    fprintf(stderr, "Error: Number of Compile Must Be More Than 0.\n");
+                    return (0);
+                }
             }
         }
         i++;
