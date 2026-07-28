@@ -24,7 +24,7 @@ int check_burnout(t_sim *sim)
 
         time_since = get_time() - sim->coders[i].last_compile_start;
 
-        if (time_since >= sim->time_to_burnout)
+        if (time_since > sim->time_to_burnout)
         {
             pthread_mutex_lock(&sim->stop_mutex);
             sim->stop_flag = 1;
@@ -48,7 +48,6 @@ int check_all_compiled(t_sim *sim)
     int i = 0;
     int finished_coders = 0;
 
-    // already catched in parsing tanrj3 liha
     if (sim->number_of_compiles_required <= 0)
         return (0);
     

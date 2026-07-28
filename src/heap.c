@@ -12,19 +12,6 @@
 
 #include "codexion.h"
 
-// int	is_higher_priority(t_coder *a, t_coder *b)
-// {
-// 	if (a->data->scheduler_mode == 0)
-// 	{
-// 		if (a->request_time < b->request_time)
-// 			return (1);
-// 		return (0);
-// 	}
-// 	if (a->deadline < b->deadline)
-// 		return (1);
-// 	return (0);
-// }
-
 int is_higher_priority(t_coder *a, t_coder *b)
 {
     if (a->data->scheduler_mode == 0)
@@ -63,7 +50,6 @@ void bubble_up(t_heap *heap, int index)
     {
         parent = (i - 1) / 2;
         if (is_higher_priority(heap->array[i], heap->array[parent]))
-            // swap_nodes(heap->array + parent, heap->array + i);
             swap_nodes((t_coder **)&heap->array[parent], (t_coder **)&heap->array[i]);
         else
             break;
@@ -89,7 +75,6 @@ void bubble_down(t_heap *heap, int index)
             best_child = r_child;
         if (is_higher_priority(heap->array[best_child], heap->array[i]))
         {
-            // swap_nodes(heap->array + best_child, heap->array + i);
             swap_nodes((t_coder **)&heap->array[best_child], (t_coder **)&heap->array[i]);
             i = best_child;
         }

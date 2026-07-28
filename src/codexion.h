@@ -84,7 +84,7 @@ void push(t_heap *heap, t_coder *coder);
 t_coder *pop(t_heap *heap);
 void bubble_up(t_heap *heap, int index);
 void bubble_down(t_heap *heap, int index);
-void c_sleep(size_t duration);
+void c_sleep(size_t duration, t_sim *sim);
 size_t  get_time(void);
 int start_simulation(t_sim *sim);
 void *coder_routine(void *arg);
