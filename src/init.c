@@ -33,14 +33,14 @@ int init_simulation(t_sim *sim)
     if (!sim->coders)
     {
         fprintf(stderr, "Error While Allocating !!!");
-        return (0);
+        return (1);
     }
     sim->dongles = malloc(sizeof(t_dongle) * sim->number_of_coders);
     if (!sim->dongles)
     {
         fprintf(stderr, "Error While Allocating !!!");
         free(sim->coders);
-        return (0);
+        return (1);
     }
     while(i < sim->number_of_coders)
     {
@@ -52,7 +52,7 @@ int init_simulation(t_sim *sim)
             }
             free(sim->coders);
             free(sim->dongles);
-            return (0);
+            return (1);
         }
         sim->dongles[i].available_at = 0;
         sim->dongles[i].in_process = 0;
@@ -72,6 +72,12 @@ int init_simulation(t_sim *sim)
         i++;
     }
     pthread_mutex_init(&sim->print_mutex, NULL);
+
+    // li zedt db ela 7assab cond var
+    pthread_mutex_init(&sim->start_mutex, NULL);
+    pthread_cond_init(&sim->start_cond, NULL);
+
+    sim->simulation_started = 0;
     sim->stop_flag = 0;
     if (init_heaps(sim) == 0)
     {
@@ -84,7 +90,7 @@ int init_simulation(t_sim *sim)
         }
         free(sim->coders);
         free(sim->dongles);
-        return (0);
+        return (1);
     }
-    return (1);
+    return (0);
 }

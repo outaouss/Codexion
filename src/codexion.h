@@ -70,6 +70,11 @@ typedef struct s_sim
     t_coder         *coders;
     pthread_mutex_t stop_mutex;
 
+    pthread_mutex_t start_mutex;
+    pthread_cond_t start_cond;
+
+    int simulation_started;
+
 }   t_sim;
 
 
@@ -100,5 +105,9 @@ void *monitor_thread(void *arg);
 int is_higher_priority(t_coder *a, t_coder *b);
 int	request_dongles(t_coder *coder);
 int	is_dongle_ready(t_dongle *dongle, t_coder *coder);
+void free_all(t_sim *sim);
+void destroy_dongles_mutex(t_sim *sim);
+void destroy_coders_mutex(t_sim *sim);
+void destroy_sim_mutex(t_sim *sim);
 
 #endif

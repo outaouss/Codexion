@@ -107,7 +107,6 @@ void do_compile(t_coder *coder)
 {
     pthread_mutex_lock(&coder->c_mutex);
     coder->last_compile_start = get_time();
-    // coder->compile_count++;
     pthread_mutex_unlock(&coder->c_mutex);
 
     print_action(coder, "is compiling");

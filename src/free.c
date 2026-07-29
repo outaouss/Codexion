@@ -22,3 +22,14 @@ void free_heaps_so_far(t_sim *sim, int failed_index)
         j--;
     }
 }
+
+void free_all(t_sim *sim)
+{
+    int i;
+
+    i = 0;
+    if (sim->coders)
+        free(sim->coders);
+    if (sim->dongles)
+        free(sim->dongles);
+}

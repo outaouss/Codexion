@@ -76,6 +76,14 @@ void *monitor_thread(void *arg)
     t_sim *sim;
     sim = (t_sim *)arg;
 
+    pthread_mutex_lock(&sim->start_mutex);
+
+    while (!sim->simulation_started)
+    {
+        pthread_cond_wait(&sim->start_cond, &sim->start_mutex);
+    }
+    pthread_mutex_unlock(&sim->start_mutex);
+
     while(1)
     {
         if (check_burnout(sim) == 1)

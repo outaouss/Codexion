@@ -23,14 +23,14 @@ int parsing(char **av, t_sim *sim)
         if (!(check_number(av[i])))
         {
             printf("Error: No Number or Negative Number.\n");
-            return (0);
+            return (1);
         }
         value = ft_atoi(av[i]);
 
         if (value == -1)
         {
             fprintf(stderr, "Error: Value Overflowed.\n");
-            return (0);
+            return (1);
         }
         if (i == 1 || i == 6)
         {
@@ -39,7 +39,7 @@ int parsing(char **av, t_sim *sim)
                 if (value == 0)
                 {
                     fprintf(stderr, "Error: Coders Must Be More Than 0.\n");
-                    return (0);
+                    return (1);
                 }
             }
             if (i == 6)
@@ -47,7 +47,7 @@ int parsing(char **av, t_sim *sim)
                 if (value == 0)
                 {
                     fprintf(stderr, "Error: Number of Compile Must Be More Than 0.\n");
-                    return (0);
+                    return (1);
                 }
             }
         }
@@ -68,7 +68,7 @@ int parsing(char **av, t_sim *sim)
     else
     {
         fprintf(stderr, "Error: Expecting 'edf' or 'fifo'\nGot: [ %s ]\n", av[i]);
-        return (0);
+        return (1);
     }
-    return (1);
+    return (0);
 }

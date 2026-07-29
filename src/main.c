@@ -18,16 +18,30 @@ int main(int argc, char **argv)
 
     if (argc == 9)
     {
-        if (parsing(argv, &sim) == 0)
-            return (0);
+        if (parsing(argv, &sim))
+            return (1);
         
-        if (init_simulation(&sim) == 0)
-            return (0);
-        start_simulation(&sim);
+        if (init_simulation(&sim))
+            return (1);
+        if (start_simulation(&sim))
+        {
+            destroy_coders_mutex(&sim);
+            destroy_dongles_mutex(&sim);
+            destroy_sim_mutex(&sim);
+            free_all(&sim);
+            return (1);
+        }
+
+        free_all(&sim);
+
+        destroy_coders_mutex(&sim);
+        destroy_dongles_mutex(&sim);
+        destroy_sim_mutex(&sim);
     }
     else
     {
         fprintf(stderr, "Error: Inputs Must Be 8\nGot: [ %d ]\n", argc - 1);
-        return (0);
+        return (1);
     }
+    return (0);
 }
