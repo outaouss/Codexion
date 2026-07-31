@@ -23,13 +23,20 @@ int is_higher_priority(t_coder *a, t_coder *b)
     {
         if (a->deadline != b->deadline)
             return (a->deadline < b->deadline);
+        
+        if (a->deadline == b->deadline)
+        {
+            if (a->compile_count == b->compile_count)
+                return (a->id < b->id);
+            return (a->compile_count < b->compile_count);
+        }
     }
 
     if (a->last_compile_start != b->last_compile_start)
         return (a->last_compile_start < b->last_compile_start);
-
     return (a->id < b->id);
 }
+
 
 void swap_nodes(t_coder **a, t_coder **b)
 {

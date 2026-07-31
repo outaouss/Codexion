@@ -26,7 +26,7 @@ void *coder_routine(void *arg)
     pthread_mutex_unlock(&coder->data->start_mutex);
 
     if (coder->id % 2 == 0)
-        usleep(1000);
+        usleep((coder->data->time_to_compile + coder->data->dongle_cooldown) / 2);
     
     while(check_stop_flag(coder->data) == 0)
     {
