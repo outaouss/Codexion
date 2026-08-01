@@ -33,7 +33,7 @@ int init_simulation(t_sim *sim)
     if (!sim->coders)
     {
         fprintf(stderr, "Error While Allocating !!!");
-        return (1);
+        return (1); 
     }
     sim->dongles = malloc(sizeof(t_dongle) * sim->number_of_coders);
     if (!sim->dongles)
@@ -65,7 +65,16 @@ int init_simulation(t_sim *sim)
         sim->coders[i].compile_count = 0;
         sim->coders[i].data = sim;
         sim->coders[i].last_compile_start = 0;
-        pthread_mutex_init(&sim->coders[i].c_mutex, NULL);
+        if (pthread_mutex_init(&sim->coders[i].c_mutex, NULL))
+        {
+            while (i--)
+            {
+                pthread_mutex_destroy(&sim->coders[i].c_mutex);
+            }
+            free(sim->coders);
+            free(sim->dongles);
+            return (1);
+        }
 
         sim->coders[i].left = &sim->dongles[i];
         sim->coders[i].right = &sim->dongles[(i + 1) % sim->number_of_coders];
@@ -73,24 +82,25 @@ int init_simulation(t_sim *sim)
     }
     pthread_mutex_init(&sim->print_mutex, NULL);
 
-    // li zedt db ela 7assab cond var
     pthread_mutex_init(&sim->start_mutex, NULL);
     pthread_cond_init(&sim->start_cond, NULL);
 
     sim->simulation_started = 0;
     sim->stop_flag = 0;
-    if (init_heaps(sim) == 0)
-    {
-        i = 0;
-        while(i < sim->number_of_coders)
-        {
-            pthread_mutex_destroy(&sim->dongles[i].d_mutex);
-            pthread_mutex_destroy(&sim->coders[i].c_mutex);
-            i++;
-        }
-        free(sim->coders);
-        free(sim->dongles);
-        return (1);
-    }
+    init_heaps(sim);
+
+    // if (init_heaps(sim) == 0)
+    // {
+    //     i = 0;
+    //     while(i < sim->number_of_coders)
+    //     {
+    //          pthread_mutex_destroy(&sim->dongles[i].d_mutex);
+    //         pthread_mutex_destroy(&sim->coders[i].c_mutex);
+    //         i++;
+    //     }
+    //     free(sim->coders);
+    //     free(sim->dongles);
+    //     return (1);
+    // }
     return (0);
 }
