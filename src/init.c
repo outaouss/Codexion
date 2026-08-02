@@ -85,22 +85,11 @@ int init_simulation(t_sim *sim)
     pthread_mutex_init(&sim->start_mutex, NULL);
     pthread_cond_init(&sim->start_cond, NULL);
 
+    pthread_mutex_init(&sim->stop_mutex, NULL);
+
     sim->simulation_started = 0;
     sim->stop_flag = 0;
     init_heaps(sim);
 
-    // if (init_heaps(sim) == 0)
-    // {
-    //     i = 0;
-    //     while(i < sim->number_of_coders)
-    //     {
-    //          pthread_mutex_destroy(&sim->dongles[i].d_mutex);
-    //         pthread_mutex_destroy(&sim->coders[i].c_mutex);
-    //         i++;
-    //     }
-    //     free(sim->coders);
-    //     free(sim->dongles);
-    //     return (1);
-    // }
     return (0);
 }

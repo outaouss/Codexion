@@ -12,17 +12,6 @@
 
 #include "codexion.h"
 
-void free_heaps_so_far(t_sim *sim, int failed_index)
-{
-    int j = failed_index - 1; 
-
-    while (j >= 0)
-    {
-        free(sim->dongles[j].heap.array);
-        j--;
-    }
-}
-
 void free_all(t_sim *sim)
 {
     int i;

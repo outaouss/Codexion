@@ -26,8 +26,13 @@ void *coder_routine(void *arg)
     pthread_mutex_unlock(&coder->data->start_mutex);
 
     if (coder->id % 2 == 0)
-        usleep((coder->data->time_to_compile + coder->data->dongle_cooldown) / 2);
+        // usleep((coder->data->time_to_compile + coder->data->dongle_cooldown) / 2);
+        c_sleep(((coder->data->time_to_compile + coder->data->dongle_cooldown) / 2), coder->data);
     
+    pthread_mutex_lock(&coder->c_mutex);
+    coder->last_compile_start = get_time();
+    pthread_mutex_unlock(&coder->c_mutex);
+
     while(check_stop_flag(coder->data) == 0)
     {
         take_dongles(coder);

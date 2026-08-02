@@ -20,6 +20,11 @@ int parsing(char **av, t_sim *sim)
 
     while(i <= 7)
     {
+        if ((check_number(av[i])) == 2)
+        {
+            printf("Error: -0 is Not Valid :)\n");
+            return (1);
+        }
         if (!(check_number(av[i])))
         {
             printf("Error: No Number or Negative Number.\n");

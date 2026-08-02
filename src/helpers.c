@@ -20,7 +20,12 @@ int check_number(char *str)
     if (str[i] == '+' || str[i] == '-')
     {
         if (str[i] == '-')
+        {
+            i++;
+            if (str[i] == '0')
+                return (2);
             return (0);
+        }
         i++;
     }
     if (!str[i])

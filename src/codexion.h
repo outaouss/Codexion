@@ -83,7 +83,6 @@ int parsing(char **av, t_sim *sim);
 long	ft_atoi(char *str);
 int init_heaps(t_sim *sim);
 int init_simulation(t_sim *sim);
-void free_heaps_so_far(t_sim *sim, int failed_index);
 void swap_nodes(t_coder **a, t_coder **b);
 void push(t_heap *heap, t_coder *coder);
 t_coder *pop(t_heap *heap);
