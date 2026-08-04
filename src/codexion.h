@@ -129,11 +129,14 @@ void	init_last_compile(t_sim *sim);
 void	destroy_coder_mutexes(t_sim *sim, int count);
 int	init_coder(t_sim *sim, int i);
 int	init_coders(t_sim *sim);
-void	init_sync_primitives(t_sim *sim);
+int	init_sync_primitives(t_sim *sim);
 int	init_simulation(t_sim *sim);
 void	init_heaps(t_sim *sim);
 int	alloc_simulation(t_sim *sim);
 void	destroy_dongle_mutexes(t_sim *sim, int count);
 int	init_dongles(t_sim *sim);
+
+int	abort_sync_init(t_sim *sim, int count);
+void	destroy_sync_primitives(t_sim *sim, int count);
 
 #endif

@@ -53,14 +53,19 @@ int	init_coders(t_sim *sim)
 	return (0);
 }
 
-void	init_sync_primitives(t_sim *sim)
+int	init_sync_primitives(t_sim *sim)
 {
-	pthread_mutex_init(&sim->print_mutex, NULL);
-	pthread_mutex_init(&sim->start_mutex, NULL);
-	pthread_cond_init(&sim->start_cond, NULL);
-	pthread_mutex_init(&sim->stop_mutex, NULL);
+	if (pthread_mutex_init(&sim->print_mutex, NULL))
+		return (abort_sync_init(sim, 0));
+	if (pthread_mutex_init(&sim->start_mutex, NULL))
+		return (abort_sync_init(sim, 1));
+	if (pthread_cond_init(&sim->start_cond, NULL))
+		return (abort_sync_init(sim, 2));
+	if (pthread_mutex_init(&sim->stop_mutex, NULL))
+		return (abort_sync_init(sim, 3));
 	sim->simulation_started = 0;
 	sim->stop_flag = 0;
+	return (0);
 }
 
 int	init_simulation(t_sim *sim)
@@ -71,7 +76,8 @@ int	init_simulation(t_sim *sim)
 		return (1);
 	if (init_coders(sim))
 		return (1);
-	init_sync_primitives(sim);
+	if (init_sync_primitives(sim))
+		return (1);
 	init_heaps(sim);
 	return (0);
 }
