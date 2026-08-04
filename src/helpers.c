@@ -12,31 +12,31 @@
 
 #include "codexion.h"
 
-int check_number(char *str)
+int	check_number(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (str[i] == '+' || str[i] == '-')
-    {
-        if (str[i] == '-')
-        {
-            i++;
-            if (str[i] == '0')
-                return (2);
-            return (0);
-        }
-        i++;
-    }
-    if (!str[i])
-        return (0);
-    while (str[i])
-    {
-        if (str[i] < '0' || str[i] > '9')
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+		{
+			i++;
+			if (str[i] == '0')
+				return (2);
+			return (0);
+		}
+		i++;
+	}
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 long	ft_atoi(char *str)

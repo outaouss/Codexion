@@ -81,8 +81,8 @@ typedef struct s_sim
 int check_number(char *str);
 int parsing(char **av, t_sim *sim);
 long	ft_atoi(char *str);
-int init_heaps(t_sim *sim);
-int init_simulation(t_sim *sim);
+// int init_heaps(t_sim *sim);
+// int init_simulation(t_sim *sim);
 void swap_nodes(t_coder **a, t_coder **b);
 void push(t_heap *heap, t_coder *coder);
 t_coder *pop(t_heap *heap);
@@ -90,8 +90,8 @@ void bubble_up(t_heap *heap, int index);
 void bubble_down(t_heap *heap, int index);
 void c_sleep(size_t duration, t_sim *sim);
 size_t  get_time(void);
-int start_simulation(t_sim *sim);
-void *coder_routine(void *arg);
+// int start_simulation(t_sim *sim);
+// void *coder_routine(void *arg);
 void take_dongles(t_coder *coder);
 void do_compile(t_coder *coder);
 void release_dongles(t_coder *coder);
@@ -105,8 +105,35 @@ int is_higher_priority(t_coder *a, t_coder *b);
 int	request_dongles(t_coder *coder);
 int	is_dongle_ready(t_dongle *dongle, t_coder *coder);
 void free_all(t_sim *sim);
-void destroy_dongles_mutex(t_sim *sim);
-void destroy_coders_mutex(t_sim *sim);
-void destroy_sim_mutex(t_sim *sim);
+// void destroy_dongles_mutex(t_sim *sim);
+// void destroy_coders_mutex(t_sim *sim);
+// void destroy_sim_mutex(t_sim *sim);
+void	destroy_all_mutexes(t_sim *sim);
+void	dongle_take_helper(t_coder *coder);
+int	part_two(char **av, int index);
+int	part_one(char **av, int index);
+int	parsing_while(char **av);
+
+// Simulation
+
+int abort_simulation(t_sim *sim, int count);
+int setup_simulation(t_sim *sim, pthread_t *monitor);
+int start_simulation(t_sim *sim);
+void coder_prepare(t_coder *coder);
+void coder_compile_loop(t_coder *coder);
+void *coder_routine(void *arg);
+void	init_last_compile(t_sim *sim);
+
+// init
+
+void	destroy_coder_mutexes(t_sim *sim, int count);
+int	init_coder(t_sim *sim, int i);
+int	init_coders(t_sim *sim);
+void	init_sync_primitives(t_sim *sim);
+int	init_simulation(t_sim *sim);
+void	init_heaps(t_sim *sim);
+int	alloc_simulation(t_sim *sim);
+void	destroy_dongle_mutexes(t_sim *sim, int count);
+int	init_dongles(t_sim *sim);
 
 #endif
