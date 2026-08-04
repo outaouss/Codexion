@@ -139,4 +139,6 @@ int	init_dongles(t_sim *sim);
 int	abort_sync_init(t_sim *sim, int count);
 void	destroy_sync_primitives(t_sim *sim, int count);
 
+int	try_take_dongles(t_dongle *first, t_dongle *second, t_coder *coder);
+
 #endif

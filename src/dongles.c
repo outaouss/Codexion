@@ -14,23 +14,23 @@
 
 int	request_dongles(t_coder *coder)
 {
+	t_dongle	*first;
+	t_dongle	*second;
+
+	if (coder->left < coder->right)
+	{
+		first = coder->left;
+		second = coder->right;
+	}
+	else
+	{
+		first = coder->right;
+		second = coder->left;
+	}
 	while (check_stop_flag(coder->data) == 0)
 	{
-		pthread_mutex_lock(&coder->left->d_mutex);
-		pthread_mutex_lock(&coder->right->d_mutex);
-		if (is_dongle_ready(coder->left, coder)
-			&& is_dongle_ready(coder->right, coder))
-		{
-			coder->left->in_process = 1;
-			coder->right->in_process = 1;
-			pop(&coder->left->heap);
-			pop(&coder->right->heap);
-			pthread_mutex_unlock(&coder->right->d_mutex);
-			pthread_mutex_unlock(&coder->left->d_mutex);
+		if (try_take_dongles(first, second, coder))
 			return (1);
-		}
-		pthread_mutex_unlock(&coder->right->d_mutex);
-		pthread_mutex_unlock(&coder->left->d_mutex);
 		usleep(100);
 	}
 	return (0);

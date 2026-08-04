@@ -36,3 +36,23 @@ void	dongle_take_helper(t_coder *coder)
 		usleep(100);
 	}
 }
+
+int	try_take_dongles(t_dongle *first, t_dongle *second, t_coder *coder)
+{
+	pthread_mutex_lock(&first->d_mutex);
+	pthread_mutex_lock(&second->d_mutex);
+	if (is_dongle_ready(first, coder)
+		&& is_dongle_ready(second, coder))
+	{
+		first->in_process = 1;
+		second->in_process = 1;
+		pop(&first->heap);
+		pop(&second->heap);
+		pthread_mutex_unlock(&second->d_mutex);
+		pthread_mutex_unlock(&first->d_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&second->d_mutex);
+	pthread_mutex_unlock(&first->d_mutex);
+	return (0);
+}

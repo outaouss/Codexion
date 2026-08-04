@@ -21,7 +21,7 @@ void	destroy_sync_primitives(t_sim *sim, int count)
 	if (count > 0)
 		pthread_mutex_destroy(&sim->print_mutex);
 }
- 
+
 int	abort_sync_init(t_sim *sim, int count)
 {
 	destroy_sync_primitives(sim, count);
