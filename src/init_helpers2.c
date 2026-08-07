@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_helpers2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 00:12:39 by outaouss          #+#    #+#             */
-/*   Updated: 2026/08/05 00:12:40 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/08/07 06:56:30 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void	destroy_sync_primitives(t_sim *sim, int count)
 		pthread_mutex_destroy(&sim->print_mutex);
 }
 
-int	abort_sync_init(t_sim *sim, int count)
+void	abort_sync_init(t_sim *sim, int count)
 {
 	destroy_sync_primitives(sim, count);
 	destroy_coder_mutexes(sim, sim->number_of_coders);
 	destroy_dongle_mutexes(sim, sim->number_of_coders);
 	free(sim->coders);
 	free(sim->dongles);
-	return (1);
 }

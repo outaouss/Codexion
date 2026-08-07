@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 06:21:55 by outaouss          #+#    #+#             */
-/*   Updated: 2026/08/04 06:21:57 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/08/07 06:56:18 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,25 @@ int	init_coders(t_sim *sim)
 int	init_sync_primitives(t_sim *sim)
 {
 	if (pthread_mutex_init(&sim->print_mutex, NULL))
-		return (abort_sync_init(sim, 0));
+	{
+		abort_sync_init(sim, 0);
+		return (1);
+	}
 	if (pthread_mutex_init(&sim->start_mutex, NULL))
-		return (abort_sync_init(sim, 1));
+	{
+		abort_sync_init(sim, 0);
+		return (1);
+	}
 	if (pthread_cond_init(&sim->start_cond, NULL))
-		return (abort_sync_init(sim, 2));
+	{
+		abort_sync_init(sim, 0);
+		return (1);
+	}
 	if (pthread_mutex_init(&sim->stop_mutex, NULL))
-		return (abort_sync_init(sim, 3));
+	{
+		abort_sync_init(sim, 0);
+		return (1);
+	}
 	sim->simulation_started = 0;
 	sim->stop_flag = 0;
 	return (0);

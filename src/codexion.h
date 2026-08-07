@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 06:19:16 by outaouss          #+#    #+#             */
-/*   Updated: 2026/08/04 06:19:19 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/08/07 06:56:49 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	alloc_simulation(t_sim *sim);
 void	destroy_dongle_mutexes(t_sim *sim, int count);
 int	init_dongles(t_sim *sim);
 
-int	abort_sync_init(t_sim *sim, int count);
+void	abort_sync_init(t_sim *sim, int count);
 void	destroy_sync_primitives(t_sim *sim, int count);
 
 int	try_take_dongles(t_dongle *first, t_dongle *second, t_coder *coder);
