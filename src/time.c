@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 06:22:26 by outaouss          #+#    #+#             */
-/*   Updated: 2026/08/04 06:22:27 by outaouss         ###   ########.fr       */
+/*   Updated: 2026/08/07 07:30:57 by splinta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ size_t	get_time(void)
 {
 	struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL) == -1)
-		return (0);
+	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
