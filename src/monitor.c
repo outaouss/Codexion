@@ -48,8 +48,6 @@ int	check_all_compiled(t_sim *sim)
 
 	i = 0;
 	finished_coders = 0;
-	if (sim->number_of_compiles_required <= 0)
-		return (0);
 	while (i < sim->number_of_coders)
 	{
 		pthread_mutex_lock(&sim->coders[i].c_mutex);
@@ -58,7 +56,8 @@ int	check_all_compiled(t_sim *sim)
 		pthread_mutex_unlock(&sim->coders[i].c_mutex);
 		i++;
 	}
-	if (finished_coders == sim->number_of_coders)
+	if (finished_coders == sim->number_of_coders
+		|| finished_coders >= sim->number_of_compiles_required)
 	{
 		pthread_mutex_lock(&sim->stop_mutex);
 		sim->stop_flag = 1;

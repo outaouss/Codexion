@@ -90,15 +90,6 @@ int	part_two(char **av, int index)
 				return (1);
 			}
 		}
-		if (index == 6)
-		{
-			if (value == 0)
-			{
-				fprintf(stderr, "Error: "
-					"Number of Compile Must Be More Than 0.\n");
-				return (1);
-			}
-		}
 	}
 	return (0);
 }
