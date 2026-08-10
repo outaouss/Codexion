@@ -21,9 +21,9 @@ void	coder_prepare(t_coder *coder)
 	if (coder->id % 2 == 0)
 		c_sleep(((coder->data->time_to_compile
 					+ coder->data->dongle_cooldown) / 2), coder->data);
-	pthread_mutex_lock(&coder->c_mutex);
-	coder->last_compile_start = get_time();
-	pthread_mutex_unlock(&coder->c_mutex);
+	// pthread_mutex_lock(&coder->c_mutex);
+	// coder->last_compile_start = get_time();
+	// pthread_mutex_unlock(&coder->c_mutex);
 }
 
 void	coder_compile_loop(t_coder *coder)
