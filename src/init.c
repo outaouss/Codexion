@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: splinta <splinta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: outaouss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/04 06:21:55 by outaouss          #+#    #+#             */
-/*   Updated: 2026/08/07 06:56:18 by splinta          ###   ########.fr       */
+/*   Created: 2026/08/12 04:48:12 by outaouss          #+#    #+#             */
+/*   Updated: 2026/08/12 04:48:14 by outaouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ int	init_sync_primitives(t_sim *sim)
 	}
 	if (pthread_mutex_init(&sim->start_mutex, NULL))
 	{
-		abort_sync_init(sim, 0);
+		abort_sync_init(sim, 1);
 		return (1);
 	}
 	if (pthread_cond_init(&sim->start_cond, NULL))
 	{
-		abort_sync_init(sim, 0);
+		abort_sync_init(sim, 2);
 		return (1);
 	}
 	if (pthread_mutex_init(&sim->stop_mutex, NULL))
 	{
-		abort_sync_init(sim, 0);
+		abort_sync_init(sim, 3);
 		return (1);
 	}
 	sim->simulation_started = 0;

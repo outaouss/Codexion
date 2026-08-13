@@ -43,9 +43,9 @@ int	parsing_while(char **av)
 	i = 1;
 	while (i <= 7)
 	{
-		if (part_one(av, i) == 1)
+		if (part_one(av, i))
 			return (1);
-		if (part_two(av, i) == 1)
+		if (part_two(av, i))
 			return (1);
 		i++;
 	}
@@ -56,14 +56,9 @@ int	part_one(char **av, int index)
 {
 	long	value;
 
-	if ((check_number(av[index])) == 2)
+	if (check_number(av[index]))
 	{
-		printf("Error: -0 is Not Valid :)\n");
-		return (1);
-	}
-	if (!(check_number(av[index])))
-	{
-		printf("Error: No Number or Negative Number.\n");
+		printf("Error: No Number or Negative Number or Malformed Number.\n");
 		return (1);
 	}
 	value = ft_atoi(av[index]);

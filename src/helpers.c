@@ -12,31 +12,66 @@
 
 #include "codexion.h"
 
-int	check_number(char *str)
+int	check_number_condition(char *str, int i)
 {
-	int	i;
-
-	i = 0;
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
 		{
 			i++;
-			if (str[i] == '0')
-				return (2);
-			return (0);
+			if (str[i] != '0')
+				return (-1);
 		}
-		i++;
+		else
+		{
+			i++;
+			if (str[i] < '0' || str[i] > '9')
+				return (-1);
+		}
 	}
-	if (!str[i])
-		return (0);
-	while (str[i])
+	return (i);
+}
+
+int	check_number(char *str)
+{
+	int	i;
+	int	result;
+
+	i = 0;
+	result = 0;
+	while (str[i] == ' ')
+		i++;
+	result = check_number_condition(str, i);
+	if (result == -1)
+		return (1);
+	i = result;
+	while (str[i] && str[i] != ' ')
 	{
 		if (str[i] < '0' || str[i] > '9')
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	while (str[i] == ' ')
+		i++;
+	if (str[i] != '\0')
+		return (1);
+	return (0);
+}
+
+int	ft_atoi_condition(char *str, int i)
+{
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+		{
+			i++;
+			while (str[i] == '0')
+				i++;
+		}
+		else
+			i++;
+	}
+	return (i);
 }
 
 long	ft_atoi(char *str)
@@ -46,8 +81,9 @@ long	ft_atoi(char *str)
 
 	result = 0;
 	i = 0;
-	if (str[i] == '+')
+	while (str[i] == ' ')
 		i++;
+	i = ft_atoi_condition(str, i);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = (result * 10) + (str[i] - '0');
@@ -55,7 +91,7 @@ long	ft_atoi(char *str)
 			return (-1);
 		i++;
 	}
-	if (str[i] != '\0')
-		return (-1);
+	while (str[i] == ' ')
+		i++;
 	return (result);
 }
