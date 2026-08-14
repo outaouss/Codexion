@@ -29,11 +29,11 @@ int	request_dongles(t_coder *coder)
 	}
 	while (check_stop_flag(coder->data) == 0)
 	{
-		if (try_take_dongles(first, second, coder))
-			return (1);
+		if (try_take_dongles(first, second, coder) == 0)
+			return (0);
 		usleep(100);
 	}
-	return (0);
+	return (1);
 }
 
 void	take_dongles(t_coder *coder)
