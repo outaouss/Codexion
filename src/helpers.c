@@ -42,7 +42,7 @@ int	check_number(char *str)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-		return (-1);
+		return (1);
 	result = check_number_condition(str, i);
 	if (result == -1)
 		return (1);
