@@ -29,6 +29,7 @@ int	init_coder(t_sim *sim, int i)
 	sim->coders[i].last_compile_start = 0;
 	if (pthread_mutex_init(&sim->coders[i].c_mutex, NULL))
 	{
+		destroy_dongle_mutexes(sim, sim->number_of_coders);
 		destroy_coder_mutexes(sim, i);
 		free(sim->coders);
 		free(sim->dongles);

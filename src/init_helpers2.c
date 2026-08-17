@@ -20,6 +20,10 @@ void	destroy_sync_primitives(t_sim *sim, int count)
 		pthread_mutex_destroy(&sim->start_mutex);
 	if (count > 0)
 		pthread_mutex_destroy(&sim->print_mutex);
+	destroy_coder_mutexes(sim, sim->number_of_coders);
+	destroy_dongle_mutexes(sim, sim->number_of_coders);
+	free(sim->coders);
+	free(sim->dongles);
 }
 
 void	abort_sync_init(t_sim *sim, int count)
